@@ -16,7 +16,7 @@ class Rsvp < ActiveRecord::Base
   validates_presence_of :user, :event, :role
   validates_presence_of :childcare_info, if: lambda { |rsvp| rsvp.needs_childcare? }
 
-  scope :needs_childcare, where("childcare_info <> ''")
+  scope :needs_childcare, -> { where("childcare_info <> ''") }
 
   MAX_EXPERIENCE_LENGTH = 250
   with_options(if: Proc.new {|rsvp| rsvp.role == Role::VOLUNTEER && !rsvp.historical? }) do |for_volunteers|

@@ -54,20 +54,20 @@ class Event < ActiveRecord::Base
   end
 
   def ordered_volunteer_rsvps
-    bridgetroll_rsvps = volunteer_rsvps.where(user_type: 'User').includes(:bridgetroll_user).order('checkins_count > 0 DESC, lower(users.first_name) ASC, lower(users.last_name) ASC')
+    bridgetroll_rsvps = volunteer_rsvps.where(user_type: 'User').includes(:bridgetroll_user).order('checkins_count > 0 DESC, lower(users.first_name) ASC, lower(users.last_name) ASC').references(:bridgetroll_users)
     if historical?
-      bridgetroll_rsvps + volunteer_rsvps.where(user_type: 'MeetupUser').includes(:meetup_user).order('lower(meetup_users.full_name) ASC')
+      bridgetroll_rsvps + volunteer_rsvps.where(user_type: 'MeetupUser').includes(:meetup_user).order('lower(meetup_users.full_name) ASC').references(:meetup_users)
     else
       bridgetroll_rsvps
     end
   end
 
   def self.upcoming
-    includes(:event_sessions).where('event_sessions.ends_at > ?', Time.now.utc)
+    includes(:event_sessions).where('event_sessions.ends_at > ?', Time.now.utc).references(:event_sessions)
   end
 
   def self.past
-    includes(:event_sessions).where('event_sessions.ends_at < ?', Time.now.utc)
+    includes(:event_sessions).where('event_sessions.ends_at < ?', Time.now.utc).references(:event_sessions)
   end
 
   def upcoming?

@@ -2,6 +2,8 @@ class Event < ActiveRecord::Base
   after_initialize :set_defaults
   after_save :reorder_waitlist!
 
+  attr_accessible :public_email, :time_zone, :title, :event_sessions_attributes, :details
+
   belongs_to :location
 
   has_many :rsvps, dependent: :destroy

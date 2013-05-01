@@ -122,9 +122,14 @@ describe EventsController do
         assigns(:event).should be_new_record
       end
 
-      it "uses the logged in user's time zone as the event's time zone" do
+      it "assigns the user's email to the event" do
         get :new
-        assigns(:event).time_zone.should == 'Alaska'
+        assigns(:event).public_email.should == @user.email
+      end
+
+      it "assigns the user's time zone to the event" do
+        get :new
+        assigns(:event).time_zone.should == @user.time_zone
       end
     end
   end
@@ -329,12 +334,7 @@ describe EventsController do
           @event.reload
           @event.title.should == "Updated event title"
           @event.details.should == "Updated event details"
-        end
-
-        it "sets the event's session times in the event's time zone" do
-          make_request(update_params)
-          event_session = @event.reload.event_sessions.last
-          event_session.starts_at.zone.should == 'VET'
+          @event.time_zone.should == "Caracas"
         end
 
         it "redirects to the event page" do

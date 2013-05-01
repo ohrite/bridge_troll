@@ -6,7 +6,14 @@ describe Event do
     @user = create(:user)
   end
 
+  it { should allow_mass_assignment_of(:title) }
+  it { should allow_mass_assignment_of(:details) }
+  it { should allow_mass_assignment_of(:time_zone) }
+  it { should allow_mass_assignment_of(:public_email) }
+  it { should allow_mass_assignment_of(:event_sessions_attributes) }
+
   it { should belong_to(:location) }
+
   it { should have_many(:rsvps) }
   it { should have_many(:event_sessions) }
   it { should validate_numericality_of(:student_rsvp_limit) }

@@ -106,7 +106,6 @@ ActiveRecord::Schema.define(:version => 20130505221357) do
   end
 
   add_index "rsvps", ["user_id", "event_id", "user_type"], name: "index_rsvps_on_user_id_and_event_id_and_event_type", unique: true
-  add_index "rsvps", ["user_id", "event_id"], name: "index_rsvps_on_user_id_and_event_id", unique: true
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

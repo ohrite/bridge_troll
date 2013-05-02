@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe RsvpSession do
+  it { should allow_mass_assignment_of(:event_session_id) }
+
   context 'checkins counter cache' do
     let(:rsvp) { create(:rsvp) }
     let!(:session1) { create(:rsvp_session, rsvp: rsvp) }

@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe RsvpsController do
-  def extract_rsvp_params(rsvp)
-    rsvp.attributes.except *%w{user_id id created_at updated_at}
-  end
-
   before do
     @event = create(:event, title: 'The Best Railsbridge')
   end
@@ -31,9 +27,6 @@ describe RsvpsController do
   end
 
   describe "#create" do
-    before do
-      @rsvp_params = extract_rsvp_params build(:rsvp, :event => @event)
-    end
     context "without logging in, I am redirected from the page" do
       it "redirects to the sign in page" do
         assigns[:current_user].should be_nil
@@ -52,7 +45,14 @@ describe RsvpsController do
       before do
         @user = create(:user)
         sign_in @user
-        @rsvp_params = extract_rsvp_params build(:rsvp, :event => @event)
+        @rsvp_params = {
+          role_id: Role::VOLUNTEER.id,
+          teaching_experience: "i love ducks so much",
+          subject_experience: "oh but i also love geese",
+          rsvp_sessions: [
+            @event.event_sessions.first.id
+          ]
+        }
       end
 
       it "should allow the user to newly volunteer for an event" do
@@ -160,7 +160,14 @@ describe RsvpsController do
         @user = create(:user)
         sign_in @user
         @rsvp = create(:rsvp, user: @user, event: @event)
-        @rsvp_params = extract_rsvp_params @rsvp
+        @rsvp_params = {
+          role_id: Role::VOLUNTEER.id,
+          teaching_experience: "i love ducks so much",
+          subject_experience: "oh but i also love geese",
+          rsvp_sessions: [
+            @event.event_sessions.first.id
+          ]
+        }
       end
 
       it "does not create any new rsvps" do

@@ -4,12 +4,12 @@ class RsvpsController < ApplicationController
   before_filter :load_rsvp, except: [:volunteer, :learn, :create]
 
   def volunteer
-    @rsvp = @event.rsvps.build(role: Role::VOLUNTEER)
+    @rsvp = @event.rsvps.build(role_id: Role::VOLUNTEER.id)
     render :new
   end
 
   def learn
-    @rsvp = @event.rsvps.build(role: Role::STUDENT)
+    @rsvp = @event.rsvps.build(role_id: Role::STUDENT.id)
     render :new
   end
 

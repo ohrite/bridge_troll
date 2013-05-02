@@ -3,9 +3,17 @@ require 'spec_helper'
 describe Rsvp do
   it { should belong_to(:user) }
   it { should belong_to(:event) }
+
   it { should validate_uniqueness_of(:user_id).scoped_to(:event_id) }
+
   it { should validate_presence_of(:user)}
   it { should validate_presence_of(:event)}
+
+  it { should allow_mass_assignment_of(:role_id) }
+  it { should allow_mass_assignment_of(:teaching_experience) }
+  it { should allow_mass_assignment_of(:subject_experience) }
+  it { should allow_mass_assignment_of(:needs_childcare) }
+  it { should allow_mass_assignment_of(:childcare_info) }
 
   describe 'needs_childcare scope' do
     before do

@@ -1,4 +1,6 @@
 class RsvpSession < ActiveRecord::Base
+  attr_accessible :event_session_id
+
   belongs_to :rsvp
   belongs_to :event_session
 

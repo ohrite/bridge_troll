@@ -12,6 +12,9 @@ describe Event do
   it { should allow_mass_assignment_of(:public_email) }
   it { should allow_mass_assignment_of(:event_sessions_attributes) }
 
+  it { should allow_mass_assignment_of(:meetup_volunteer_event_id) }
+  it { should allow_mass_assignment_of(:meetup_student_event_id) }
+
   it { should belong_to(:location) }
 
   it { should have_many(:rsvps) }

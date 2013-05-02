@@ -1,5 +1,6 @@
 class EventSession < ActiveRecord::Base
   attr_accessible :starts_at, :ends_at, :name
+
   validates_presence_of :starts_at, :ends_at, :name
   validates_uniqueness_of :name, scope: [:event_id]
 
@@ -13,10 +14,9 @@ class EventSession < ActiveRecord::Base
   def update_event_times
     return unless event
 
-    event.update_attributes({
-                              starts_at: event.event_sessions.minimum("event_sessions.starts_at"),
-                              ends_at: event.event_sessions.maximum("event_sessions.ends_at")
-                            })
+    event.starts_at = event.event_sessions.minimum("event_sessions.starts_at")
+    event.ends_at = event.event_sessions.maximum("event_sessions.ends_at")
+    event.save
   end
 
   def starts_at

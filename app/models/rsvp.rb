@@ -1,7 +1,7 @@
 class Rsvp < ActiveRecord::Base
   extend ActiveHash::Associations::ActiveRecordExtensions
 
-  attr_accessible :role_id, :teaching_experience, :subject_experience, :needs_childcare, :childcare_info
+  attr_accessible :user_id, :user_type, :role_id, :teaching_experience, :subject_experience, :needs_childcare, :childcare_info, :teaching, :taing
 
   belongs_to :bridgetroll_user, class_name: 'User', foreign_key: :user_id
   belongs_to :meetup_user, class_name: 'MeetupUser', foreign_key: :user_id
@@ -98,7 +98,7 @@ class Rsvp < ActiveRecord::Base
   def self.attendances_for(user_type)
     attendances = {}
     grouped_rsvps = Rsvp.where(user_type: user_type).select('user_id, role_id, count(*) count').group('role_id, user_id')
-    grouped_rsvps.all.each do |rsvp_group|
+    grouped_rsvps.load.each do |rsvp_group|
       attendances[rsvp_group.user_id] ||= Role.empty_attendance.clone
       attendances[rsvp_group.user_id][rsvp_group.role_id] = rsvp_group.count
     end

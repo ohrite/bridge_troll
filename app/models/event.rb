@@ -2,14 +2,14 @@ class Event < ActiveRecord::Base
   after_initialize :set_defaults
   after_save :reorder_waitlist!
 
-  attr_accessible :public_email, :time_zone, :title, :event_sessions_attributes, :details
+  attr_accessible :public_email, :time_zone, :title, :event_sessions_attributes, :details, :meetup_volunteer_event_id, :meetup_student_event_id
 
   belongs_to :location
 
   has_many :rsvps, dependent: :destroy
 
   has_many :student_rsvps, -> { where(role_id: Role::STUDENT.id) }, class_name: 'Rsvp'
-  has_many :student_waitlist_rsvps, class_name: 'Rsvp', conditions: -> { where(role_id: Role::STUDENT.id).where("waitlist_position IS NOT NULL") }
+  has_many :student_waitlist_rsvps, -> { where(role_id: Role::STUDENT.id).where("waitlist_position IS NOT NULL") }, class_name: 'Rsvp'
 
   has_many :students, through: :student_rsvps, source: :user, source_type: 'User'
   has_many :legacy_students, through: :student_rsvps, source: :user, source_type: 'MeetupUser'

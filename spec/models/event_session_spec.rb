@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EventSession do  
+describe EventSession do
   it { should belong_to(:event) }
 
   it { should allow_mass_assignment_of(:starts_at) }
@@ -17,18 +17,20 @@ describe EventSession do
       session1 = event.event_sessions.first
 
       event.reload
-      event.starts_at.to_i.should == session1.starts_at.to_i
-      event.ends_at.to_i.should == session1.ends_at.to_i
+      event.starts_at.should be_within(0.seconds).of(session1.starts_at)
+      event.ends_at.should be_within(0.seconds).of(session1.ends_at)
 
-      session2 = create(:event_session, event: event, starts_at: 2.days.since(session1.starts_at), ends_at: 3.days.since(session1.ends_at))
+      session2 = create(:event_session, event: event, starts_at: session1.starts_at + 2.days, ends_at: session1.ends_at + 3.days)
 
       event.reload
-      event.starts_at.to_i.should == session1.starts_at.to_i
-      event.ends_at.to_i.should == session2.ends_at.to_i
+      event.starts_at.should be_within(0.seconds).of(session1.starts_at)
+      event.ends_at.should be_within(0.seconds).of(session2.ends_at)
 
       session1.destroy
-      event.starts_at.to_i.should == session2.starts_at.to_i
-      event.ends_at.to_i.should == session2.ends_at.to_i
+
+      event.reload
+      event.starts_at.should be_within(0.seconds).of(session2.starts_at)
+      event.ends_at.should be_within(0.seconds).of(session2.ends_at)
     end
   end
 

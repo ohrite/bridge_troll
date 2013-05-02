@@ -10,10 +10,15 @@ describe Rsvp do
   it { should validate_presence_of(:event)}
 
   it { should allow_mass_assignment_of(:role_id) }
+  it { should allow_mass_assignment_of(:user_id) }
+  it { should allow_mass_assignment_of(:user_type) }
   it { should allow_mass_assignment_of(:teaching_experience) }
   it { should allow_mass_assignment_of(:subject_experience) }
   it { should allow_mass_assignment_of(:needs_childcare) }
   it { should allow_mass_assignment_of(:childcare_info) }
+
+  it { should allow_mass_assignment_of(:teaching) }
+  it { should allow_mass_assignment_of(:taing) }
 
   describe 'needs_childcare scope' do
     before do
@@ -39,8 +44,8 @@ describe Rsvp do
       @event = create(:event)
       @bridgetroll_user = create(:user, id: 2001)
       @meetup_user = create(:meetup_user, id: 2001)
-      rsvp1 = create(:rsvp, user: @bridgetroll_user, event: @event, role: Role::VOLUNTEER)
-      rsvp2 = create(:rsvp, user: @meetup_user, event: @event, role: Role::VOLUNTEER)
+      rsvp1 = create(:rsvp, user: @bridgetroll_user, event: @event, role_id: Role::VOLUNTEER.id)
+      rsvp2 = create(:rsvp, user: @meetup_user, event: @event, role_id: Role::VOLUNTEER.id)
       rsvp1.should be_valid
       rsvp2.should be_valid
     end

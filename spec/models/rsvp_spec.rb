@@ -16,11 +16,16 @@ describe Rsvp do
   it { should allow_mass_assignment_of(:subject_experience) }
   it { should allow_mass_assignment_of(:needs_childcare) }
   it { should allow_mass_assignment_of(:childcare_info) }
+  it { should allow_mass_assignment_of(:operating_system) }
   it { should allow_mass_assignment_of(:operating_system_id) }
   it { should allow_mass_assignment_of(:class_level) }
 
   it { should allow_mass_assignment_of(:teaching) }
   it { should allow_mass_assignment_of(:taing) }
+
+  it { should allow_mass_assignment_of(:user) }
+  it { should allow_mass_assignment_of(:role) }
+  it { should allow_mass_assignment_of(:event) }
 
   describe 'needs_childcare scope' do
     before do

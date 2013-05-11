@@ -4,6 +4,7 @@ describe RsvpSession do
   it { should allow_mass_assignment_of(:event_session_id) }
   it { should allow_mass_assignment_of(:checked_in) }
   it { should allow_mass_assignment_of(:rsvp_id) }
+  it { should allow_mass_assignment_of(:rsvp) }
 
   context 'checkins counter cache' do
     let(:rsvp) { create(:rsvp) }

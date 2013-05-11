@@ -1,5 +1,5 @@
 class RsvpSession < ActiveRecord::Base
-  attr_accessible :event_session_id, :rsvp_id, :checked_in
+  attr_accessible :event_session_id, :rsvp, :rsvp_id, :checked_in
 
   belongs_to :rsvp
   belongs_to :event_session

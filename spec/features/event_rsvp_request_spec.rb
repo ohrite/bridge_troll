@@ -25,8 +25,7 @@ describe 'creating or editing an rsvp' do
 
     it "allows user to toggle childcare info with the needs_childcare button", js: true do
       page.check "rsvp_needs_childcare"
-      page.find("#rsvp_childcare_info").find(:xpath, '..')['class'].
-        should_not =~ /hidden/
+      page.find("#rsvp_childcare_info").find(:xpath, '..')['class'].should_not =~ /hidden/
       page.uncheck "rsvp_needs_childcare"
       page.should_not have_css('#rsvp_childcare_info')
     end

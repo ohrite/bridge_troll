@@ -8,6 +8,7 @@ def assert_no_rows_present
     rows[sc.name] = sc.all.size
     total += sc.all.size
   end
+  total -= ActiveRecord::SchemaMigration.all.size
   if total > 0
     puts "Leaked the following rows: "
     rows.each do |klass, count|

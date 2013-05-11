@@ -21,9 +21,7 @@ module Seeder
       subject_experience: Faker::Lorem.sentence,
       teaching_experience: Faker::Lorem.sentence
     )
-    options[:event].event_sessions.each do |session|
-      RsvpSession.create!(rsvp: rsvp, event_session: session)
-    end
+    rsvp.set_attending_sessions(options[:event].event_sessions.pluck(&:id))
   end
 
   def self.create_student_rsvp options
@@ -35,9 +33,7 @@ module Seeder
       operating_system: OperatingSystem::OSX_LION,
       class_level: options[:class_level]
     )
-    options[:event].event_sessions.each do |session|
-      RsvpSession.create!(rsvp: rsvp, event_session: session)
-    end
+    rsvp.set_attending_sessions(options[:event].event_sessions.pluck(&:id))
   end
 
   def self.destroy_event event

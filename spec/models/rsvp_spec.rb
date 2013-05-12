@@ -27,6 +27,8 @@ describe Rsvp do
   it { should allow_mass_assignment_of(:role) }
   it { should allow_mass_assignment_of(:event) }
 
+  it { should allow_mass_assignment_of(:reminded_at) }
+
   describe 'needs_childcare scope' do
     before do
       @needs_childcare = create :rsvp

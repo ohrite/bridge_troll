@@ -8,7 +8,7 @@ class Rsvp < ActiveRecord::Base
   attr_accessible :operating_system_id, :operating_system
 
   attr_accessible :teaching_experience, :subject_experience, :needs_childcare,
-                  :childcare_info, :teaching, :taing, :class_level
+                  :childcare_info, :teaching, :taing, :class_level, :reminded_at
 
   belongs_to :bridgetroll_user, class_name: 'User', foreign_key: :user_id
   belongs_to :meetup_user, class_name: 'MeetupUser', foreign_key: :user_id

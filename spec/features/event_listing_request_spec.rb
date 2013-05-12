@@ -44,14 +44,6 @@ describe "the event listing page" do
         starts_at: starts_at,
         ends_at: Time.utc(next_year, 01, 31, 11, 55)
       )
-    end
-
-    it "listing should redirect to event detail page when non-logged in user volunteers" do
-      event = create(:event, time_zone: 'Pacific Time (US & Canada)')
-      event.event_sessions.first.update_attributes(
-        starts_at: 365.days.from_now,
-        ends_at: 366.days.from_now
-      )
       event.save!
 
       visit events_path

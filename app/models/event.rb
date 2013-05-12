@@ -2,7 +2,9 @@ class Event < ActiveRecord::Base
   after_initialize :set_defaults
   after_save :reorder_waitlist!
 
-  attr_accessible :public_email, :time_zone, :title, :event_sessions_attributes, :details, :meetup_volunteer_event_id, :meetup_student_event_id
+  attr_accessible :public_email, :time_zone, :title, :event_sessions_attributes,
+                  :details, :meetup_volunteer_event_id, :meetup_student_event_id,
+                  :student_rsvp_limit
 
   belongs_to :location
 

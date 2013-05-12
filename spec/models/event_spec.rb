@@ -14,6 +14,7 @@ describe Event do
 
   it { should allow_mass_assignment_of(:meetup_volunteer_event_id) }
   it { should allow_mass_assignment_of(:meetup_student_event_id) }
+  it { should allow_mass_assignment_of(:student_rsvp_limit) }
 
   it { should belong_to(:location) }
 
